@@ -1,0 +1,43 @@
+Motion & Video Kit per Claude Code (SA6B Motion Graphics + SA6C Video Editing)
+Copyright (c) 2026 Simone Dassereto. All rights reserved.
+
+SCOPE
+This notice covers the original work of Simone Dassereto in this repository: the subagent
+instructions (.claude/agents/), commands (.claude/commands/), native skills
+(directives/skills/72_video_editing, 73_video_localization, 74_motion_in_video, including their
+scripts, references and templates), context templates, install scripts and documentation, and
+their structure and selection as a whole.
+
+The third-party skills in .claude/skills/ are NOT covered by this notice: each keeps its own
+license (MIT), included in its folder and listed in THIRD_PARTY_LICENSES.md.
+
+LIMITED PERSONAL-USE PERMISSION
+Permission is granted to an individual to view, clone and run this material for their own
+personal, internal learning and for producing videos and motion graphics for their own brand or
+employer, provided that this notice and every copyright header in the files are kept intact.
+
+WITHOUT PRIOR WRITTEN PERMISSION FROM THE AUTHOR, YOU MAY NOT:
+  1. redistribute, publish, mirror or re-host this material, in whole or in part, modified or not;
+  2. sell, sublicense, or include it in any paid product, course, template pack, service offering
+     or training material;
+  3. remove, alter or obscure the author's name, copyright notices or headers;
+  4. present this material, or work derived from it, as your own or as authored by anyone other
+     than Simone Dassereto;
+  5. use it to train or fine-tune machine-learning models.
+
+Any use not expressly permitted above is reserved to the author. The permission above ends
+automatically if any of these terms is breached.
+
+THE MATERIAL IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. THE AUTHOR IS NOT LIABLE FOR ANY
+CLAIM, DAMAGE OR OTHER LIABILITY ARISING FROM ITS USE.
+
+Requests for permission: open an issue on the repository or contact the author.
+
+---
+
+Sintesi in italiano (in caso di dubbio prevale il testo inglese sopra):
+Tutti i diritti riservati a Simone Dassereto sulle parti originali del kit. Le skill di terze parti in
+.claude/skills/ restano sotto la loro licenza MIT. Puoi consultare, clonare e usare il kit per te o
+per il tuo brand/azienda, lasciando intatti questo avviso e le intestazioni nei file. Senza permesso
+scritto non puoi ridistribuirlo, venderlo, inserirlo in corsi o prodotti, togliere il nome
+dell'autore, spacciarlo per tuo o usarlo per addestrare modelli.

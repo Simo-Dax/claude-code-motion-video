@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A3 — CTA telefono (2.80s)</title>
+    <!-- iPhone disegnato in codice che ruota in 3D verso la camera; sullo schermo il profilo,
+         il tap sul pulsante "Segui" (~1.15s, su "follow") lo trasforma in "Segui già". -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Brand"; font-weight: 100 900; src: url("fonts/brand.ttf") format("truetype"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #01060f; }
+      #root { position: absolute; inset: 0; background: #01060f; font-family: "Brand", "Inter", sans-serif; }
+      .light { position: absolute; left: 140px; top: 360px; width: 800px; height: 900px; border-radius: 50%; filter: blur(50px);
+               background: radial-gradient(circle, rgba(44,111,196,.40), rgba(250,189,0,.12) 45%, rgba(0,0,0,0) 70%); }
+      .cam { position: absolute; left: 0; right: 0; top: 230px; height: 1120px; perspective: 1800px; }
+      .phone { position: absolute; left: 270px; top: 20px; width: 540px; height: 1080px; border-radius: 86px; transform-style: preserve-3d;
+               background: linear-gradient(145deg, #4a4a4f, #1c1c1e 40%, #3a3a3c); padding: 14px;
+               box-shadow: 0 80px 140px -40px rgba(0,0,0,1), inset 0 0 0 2px rgba(255,255,255,.12); }
+      .screen { position: relative; width: 100%; height: 100%; border-radius: 72px; overflow: hidden; background: #0b0b0d; }
+      .island { position: absolute; left: 50%; top: 22px; width: 150px; height: 44px; margin-left: -75px; border-radius: 22px; background: #01060f; z-index: 3; }
+      .glare { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 35%); z-index: 4; }
+      .prof { position: absolute; left: 0; right: 0; top: 170px; display: flex; flex-direction: column; align-items: center; }
+      .av { display: flex; align-items: center; justify-content: center; width: 190px; height: 190px; border-radius: 50%;
+            background: linear-gradient(135deg, #2c6fc4, #6fa3ea 50%, #fabd00); padding: 6px; }
+      .av span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 50%; background: #1c1c1e;
+                 font-size: 64px; font-weight: 700; color: #f5f5f7; }
+      .nm { margin-top: 30px; font-size: 44px; font-weight: 700; color: #f5f5f7; letter-spacing: -0.02em; }
+      .rl { margin-top: 8px; font-size: 24px; font-weight: 500; color: #8e8e93; }
+      .btns { position: relative; margin-top: 46px; width: 380px; height: 84px; }
+      .b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 22px; font-size: 34px; font-weight: 600; }
+      .b1 { background: #fabd00; color: #031026; }
+      .b2 { background: #2c2c2e; color: #f5f5f7; opacity: 0; }
+      .grid { position: absolute; left: 14px; right: 14px; top: 720px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .grid span { display: block; height: 160px; border-radius: 6px; background: linear-gradient(160deg, #2c2c2e, #1c1c1e); }
+      .tap { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+             border: 4px solid rgba(255,255,255,.8); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="2.8" data-width="1080" data-height="1920">
+      <div class="light" id="light"></div>
+      <div class="cam clip" data-start="0" data-duration="2.8" data-track-index="1">
+        <div class="phone" id="phone">
+          <div class="screen">
+            <div class="island"></div><div class="glare"></div>
+            <div class="prof">
+              <div class="av"><span>SD</span></div>
+              <div class="nm">Nome Brand</div>
+              <div class="rl">Payoff del brand</div>
+              <div class="btns"><div class="b b1" id="b1">Segui</div><div class="b b2" id="b2">Segui già</div><span class="tap" id="tap"></span></div>
+            </div>
+            <div class="grid"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.fonts.ready.then(() => {
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#light", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.out" }, 0);
+        tl.fromTo("#phone", { rotationY: -38, rotationX: 18, rotationZ: -6, z: -600, y: 260, opacity: 0 },
+                            { rotationY: -10, rotationX: 6, rotationZ: -2, z: 0, y: 0, opacity: 1, duration: 1.0, ease: "expo.out" }, 0);
+        tl.to("#phone", { rotationY: 4, rotationX: 2, rotationZ: 0, duration: 1.8, ease: "sine.inOut" }, 1.0);
+        // tap su "follow"
+        tl.fromTo("#tap", { scale: 0.4, opacity: 0 }, { scale: 1.6, opacity: 0, duration: 0.5, ease: "power2.out",
+                  keyframes: { opacity: [0, 0.9, 0] } }, 1.1);
+        tl.to("#b1", { scale: 0.93, duration: 0.1, ease: "power2.out" }, 1.12);
+        tl.to("#b1", { scale: 1, opacity: 0, duration: 0.25, ease: "power2.out" }, 1.22);
+        tl.fromTo("#b2", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 1.24);
+        tl.to({}, { duration: 0.01 }, 2.79);
+        window.__timelines["main"] = tl;
+      });
+    </script>
+  </body>
+</html>

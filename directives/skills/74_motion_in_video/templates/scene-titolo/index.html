@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A1 — titolo 3D (1.74s)</title>
+    <!-- Keynote look: nero, tre sfere 3D illuminate che arrivano dalla profondità e si dispongono,
+         titolo con gradiente metallico, riflesso a terra, camera che si avvicina piano. -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Brand"; font-weight: 100 900; src: url("fonts/brand.ttf") format("truetype"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #01060f; }
+      #root { position: absolute; inset: 0; background: #01060f; font-family: "Brand", "Inter", sans-serif; }
+      .halo { position: absolute; left: 90px; top: 380px; width: 900px; height: 900px; border-radius: 50%;
+              background: radial-gradient(circle, rgba(44,111,196,.34) 0%, rgba(16,59,114,.18) 38%, rgba(0,0,0,0) 66%); }
+      .cam { position: absolute; left: 0; right: 0; top: 330px; height: 1000px; perspective: 1400px; }
+      .world { position: absolute; inset: 0; transform-style: preserve-3d; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .row { position: relative; display: flex; gap: 56px; height: 200px; align-items: center; transform-style: preserve-3d; }
+      .sphere { display: block; width: 168px; height: 168px; border-radius: 50%;
+                box-shadow: 0 40px 80px -20px rgba(0,0,0,.9), inset -18px -24px 40px rgba(0,0,0,.45); }
+      .s1 { background: radial-gradient(circle at 32% 28%, #ffffff 0%, #b9d4ff 18%, #4f8fe6 52%, #0a2348 100%); }
+      .s2 { background: radial-gradient(circle at 32% 28%, #ffffff 0%, #8fb2e8 18%, #2c6fc4 52%, #031026 100%); }
+      .s3 { background: radial-gradient(circle at 32% 28%, #ffffff 0%, #ffe7a3 18%, #fabd00 52%, #8a5a00 100%); }
+      .refl { position: absolute; top: 210px; left: 0; right: 0; display: flex; gap: 56px; justify-content: center; opacity: .22; filter: blur(6px); transform: scaleY(-0.45); transform-origin: top; }
+      .refl span { display: block; width: 168px; height: 168px; border-radius: 50%; }
+      .title { margin-top: 170px; font-size: 128px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.05;
+               background: linear-gradient(180deg, #ffffff 0%, #ffffff 45%, #8e8e93 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .sub { margin-top: 22px; font-size: 40px; font-weight: 500; color: #86868b; letter-spacing: -0.01em; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1.74" data-width="1080" data-height="1920">
+      <div class="halo" id="halo"></div>
+      <div class="cam clip" data-start="0" data-duration="1.74" data-track-index="1">
+        <div class="world" id="world">
+          <div class="row">
+            <span class="sphere s1"></span><span class="sphere s2"></span><span class="sphere s3"></span>
+            <div class="refl"><span class="s1"></span><span class="s2"></span><span class="s3"></span></div>
+          </div>
+          <div class="title" id="title">Nome Prodotto</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.fonts.ready.then(() => {
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#world", { scale: 1.12, rotationX: 14 }, { scale: 1, rotationX: 0, duration: 1.74, ease: "power2.out" }, 0);
+        tl.fromTo(".sphere", { z: -900, y: 120, opacity: 0, rotationY: -60 },
+                             { z: 0, y: 0, opacity: 1, rotationY: 0, duration: 0.75, ease: "expo.out", stagger: 0.08 }, 0);
+        tl.fromTo(".refl", { opacity: 0 }, { opacity: 0.22, duration: 0.5 }, 0.3);
+        tl.fromTo("#halo", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+        tl.fromTo("#title", { opacity: 0, y: 50, filter: "blur(18px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.35);
+        tl.to(".sphere", { y: -10, duration: 0.5, ease: "sine.inOut", stagger: 0.1, yoyo: true, repeat: 1 }, 0.8);
+        tl.to({}, { duration: 0.01 }, 1.73);
+        window.__timelines["main"] = tl;
+      });
+    </script>
+  </body>
+</html>
